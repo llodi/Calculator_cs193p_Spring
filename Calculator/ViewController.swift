@@ -17,6 +17,22 @@ class ViewController: UIViewController {
     
     private var userIsInTheMiddleOfTyping = false
 
+    @IBOutlet weak var sin: UIButton!
+    @IBOutlet weak var ln: UIButton!
+    @IBOutlet weak var xy: UIButton!
+    @IBOutlet weak var x10: UIButton!
+    @IBOutlet weak var c: UIButton!
+    @IBOutlet weak var atan: UIButton!
+    @IBOutlet weak var pi: UIButton!
+    @IBOutlet weak var e: UIButton!
+    @IBOutlet weak var sqrt: UIButton!
+    @IBOutlet weak var multi: UIButton!
+    @IBOutlet weak var tan: UIButton!
+    
+    @IBOutlet weak var seven: UIButton!
+    @IBOutlet weak var eight: UIButton!
+    @IBOutlet weak var nine: UIButton!
+    
     
     @IBAction private func touchDigit(sender: UIButton) {
         let digit = sender.currentTitle!
@@ -53,8 +69,8 @@ class ViewController: UIViewController {
     
     private var displayValue: Double? {
         get {
-            if let text = display.text, value = Double(text) {
-                return Double(value)
+            if let text = display.text, value = Formatter.numberFormatter.numberFromString(text) {
+                return value.doubleValue
             }else{
                 display.text! = " "
                 return nil
@@ -62,7 +78,7 @@ class ViewController: UIViewController {
         }
         set {
             if let value = newValue{
-                display.text = String(value)
+                display.text = Formatter.numberFormatter.stringFromNumber(value)
             }else{
                 display.text = " "
             }

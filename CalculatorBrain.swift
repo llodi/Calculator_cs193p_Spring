@@ -32,7 +32,7 @@ class CalculatorBrain {
     
     func setOperand(operand: Double){
         accumulator = operand
-        accumulatorDescription = String(accumulator)
+        accumulatorDescription = Formatter.numberFormatter.stringFromNumber(accumulator) ?? " "
     }
     
     private var operations: Dictionary<String,Operation> = [
@@ -103,4 +103,17 @@ class CalculatorBrain {
             return accumulator
         }
     }
+    
+    //let formatter = Formatter.numberFormatter.stringFromNumber(123.545555454545454545454)
+}
+
+class Formatter{
+    static let numberFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.locale = NSLocale.currentLocale()
+        formatter.numberStyle = .DecimalStyle
+        formatter.maximumFractionDigits = 6
+        formatter.groupingSeparator = " "
+        return formatter
+    }()
 }
