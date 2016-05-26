@@ -17,21 +17,48 @@ class ViewController: UIViewController {
     
     private var userIsInTheMiddleOfTyping = false
 
-    @IBOutlet weak var sin: UIButton!
-    @IBOutlet weak var ln: UIButton!
-    @IBOutlet weak var xy: UIButton!
-    @IBOutlet weak var x10: UIButton!
-    @IBOutlet weak var c: UIButton!
-    @IBOutlet weak var atan: UIButton!
     @IBOutlet weak var pi: UIButton!
     @IBOutlet weak var e: UIButton!
     @IBOutlet weak var sqrt: UIButton!
-    @IBOutlet weak var multi: UIButton!
+    @IBOutlet weak var devide: UIButton!
     @IBOutlet weak var tan: UIButton!
     
-    @IBOutlet weak var seven: UIButton!
-    @IBOutlet weak var eight: UIButton!
-    @IBOutlet weak var nine: UIButton!
+    @IBOutlet weak var stackView0: UIStackView!
+    @IBOutlet weak var stackView1: UIStackView!
+    @IBOutlet weak var stackView2: UIStackView!
+    @IBOutlet weak var stackView3: UIStackView!
+    @IBOutlet weak var stackView4: UIStackView!
+    @IBOutlet weak var stackView5: UIStackView!
+    
+    
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        reArrangedViewStacks(newCollection.verticalSizeClass)
+    }
+    
+    private func reArrangedViewStacks (verticalSizeClass: UIUserInterfaceSizeClass){
+        if(verticalSizeClass == .Compact){
+            stackView5.addArrangedSubview(devide)
+            stackView3.insertArrangedSubview(sqrt, atIndex: 0)
+            stackView2.insertArrangedSubview(e, atIndex: 0)
+            stackView1.insertArrangedSubview(pi, atIndex: 0)
+            stackView0.insertArrangedSubview(tan, atIndex: 0)
+            stackView4.hidden = true
+        } else {
+            stackView4.addArrangedSubview(tan)
+            stackView0.removeArrangedSubview(tan)
+            stackView4.addArrangedSubview(pi)
+            stackView1.removeArrangedSubview(pi)
+            stackView4.addArrangedSubview(e)
+            stackView2.removeArrangedSubview(e)
+            stackView4.addArrangedSubview(sqrt)
+            stackView3.removeArrangedSubview(sqrt)
+            stackView4.addArrangedSubview(devide)
+            stackView5.removeArrangedSubview(devide)
+            stackView4.hidden = false
+            
+        }
+    }
     
     
     @IBAction private func touchDigit(sender: UIButton) {
@@ -69,7 +96,7 @@ class ViewController: UIViewController {
     
     private var displayValue: Double? {
         get {
-            if let text = display.text, value = Formatter.numberFormatter.numberFromString(text) {
+            if let text = display.text, value = numberFormatter.numberFromString(text) {
                 return value.doubleValue
             }else{
                 display.text! = " "
@@ -78,7 +105,7 @@ class ViewController: UIViewController {
         }
         set {
             if let value = newValue{
-                display.text = Formatter.numberFormatter.stringFromNumber(value)
+                display.text = numberFormatter.stringFromNumber(value)
             }else{
                 display.text = " "
             }
