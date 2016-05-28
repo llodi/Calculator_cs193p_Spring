@@ -82,6 +82,8 @@ class ViewController: UIViewController {
         
     }
     
+    var variableTitle = ""
+    
     @IBAction func touchBackspace(sender: UIButton) {
         if userIsInTheMiddleOfTyping{
             let text = display.text!.substringToIndex(display.text!.endIndex.predecessor())
@@ -91,6 +93,24 @@ class ViewController: UIViewController {
                 displayValue = brain.result
                 userIsInTheMiddleOfTyping = false
             }            
+        }
+    }
+    
+    private var savedProgram: CalculatorBrain.PropertyList?
+    
+    @IBAction func touchVariable(sender: UIButton) {
+        variableTitle = sender.currentTitle ?? "x"
+        brain.setOperand(variableTitle)
+    }
+    
+    @IBAction func setValueInVariable(sender: AnyObject) {
+        brain.variableValues[variableTitle] = displayValue
+        print ("brain.variableValues[variableTitle] \(brain.variableValues[variableTitle])")
+        savedProgram = brain.program
+        userIsInTheMiddleOfTyping = false
+        if savedProgram != nil {
+            brain.program = savedProgram!
+            displayValue = brain.result
         }
     }
     
@@ -122,10 +142,8 @@ class ViewController: UIViewController {
         if let mathematicalSymbol = sender.currentTitle{
             brain.performOperand(mathematicalSymbol)
         }
-        
         displayValue = brain.result
         sequenceОfОperandsОndОperations.text! = brain.description + (brain.isPartialResult ? " ..." : " =")
-
     }
 }
 

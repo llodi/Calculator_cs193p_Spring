@@ -14,6 +14,8 @@ class CalculatorBrain {
     private var accumulatorDescription = " "
     private var currentPrecedence = 0
     
+    private var internalProgram = [AnyObject]()
+    
     deinit {
         print("killed!")
     }
@@ -30,7 +32,18 @@ class CalculatorBrain {
         return pending != nil
     }
     
+    func setOperand(variableName: String){
+        internalProgram.append(variableName)
+        variableValues[variableName] = 0.0
+        accumulator = 0.0
+        accumulatorDescription = variableName
+    }
+    
+    var variableValues: Dictionary<String, Double> = [:]
+    
+    
     func setOperand(operand: Double){
+        internalProgram.append(operand)
         accumulator = operand
         accumulatorDescription = numberFormatter.stringFromNumber(accumulator) ?? " "
     }
@@ -64,6 +77,7 @@ class CalculatorBrain {
     }
     
     func performOperand(symbol: String){
+        internalProgram.append(symbol)
         if let operation = operations[symbol]{
             switch operation {
             case .Constant(let value):
@@ -101,6 +115,39 @@ class CalculatorBrain {
         var firstOperand: Double
         var stringFunction: (String, String) -> String
         var firstOperandDescription: String
+    }
+    
+    typealias PropertyList = AnyObject
+    
+    var program: PropertyList {
+        get {
+            return internalProgram
+        }
+        set{
+            //clear()
+            if let arrayOfOps = newValue as? [AnyObject] {
+                for op in arrayOfOps {
+                    if let operand = op as? Double {
+                        setOperand(operand)
+                    } else if let symbol = op as? String{
+                        if let var_ = variableValues[symbol] {
+                            setOperand(var_)
+                            print("var_: \(var_)")
+                            print("symbol: \(symbol)")
+                        }
+                        performOperand(symbol)
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func clear() {
+        accumulator = 0.0
+        accumulatorDescription = ""
+        pending = nil
+        internalProgram.removeAll()
     }
     
     var result: Double {
