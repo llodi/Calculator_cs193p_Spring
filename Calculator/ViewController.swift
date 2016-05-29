@@ -17,11 +17,16 @@ class ViewController: UIViewController {
     
     private var userIsInTheMiddleOfTyping = false
 
-    @IBOutlet weak var pi: UIButton!
-    @IBOutlet weak var e: UIButton!
-    @IBOutlet weak var sqrt: UIButton!
-    @IBOutlet weak var devide: UIButton!
-    @IBOutlet weak var tan: UIButton!
+    @IBOutlet weak var u: UIButton!
+    @IBOutlet weak var log: UIButton!
+    @IBOutlet weak var tenx: UIButton!
+    @IBOutlet weak var ln: UIButton!
+    @IBOutlet weak var tan_1: UIButton!
+    @IBOutlet weak var c: UIButton!
+    @IBOutlet weak var back: UIButton!
+    @IBOutlet weak var M: UIButton!
+    @IBOutlet weak var setM: UIButton!
+    @IBOutlet weak var rand: UIButton!
     
     @IBOutlet weak var stackView0: UIStackView!
     @IBOutlet weak var stackView1: UIStackView!
@@ -29,7 +34,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var stackView3: UIStackView!
     @IBOutlet weak var stackView4: UIStackView!
     @IBOutlet weak var stackView5: UIStackView!
-    
+    @IBOutlet weak var stackView6: UIStackView!
+
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
@@ -38,25 +44,31 @@ class ViewController: UIViewController {
     
     private func reArrangedViewStacks (verticalSizeClass: UIUserInterfaceSizeClass){
         if(verticalSizeClass == .Compact){
-            stackView5.addArrangedSubview(devide)
-            stackView3.insertArrangedSubview(sqrt, atIndex: 0)
-            stackView2.insertArrangedSubview(e, atIndex: 0)
-            stackView1.insertArrangedSubview(pi, atIndex: 0)
-            stackView0.insertArrangedSubview(tan, atIndex: 0)
-            stackView4.hidden = true
+            stackView4.addArrangedSubview(c)
+            stackView3.addArrangedSubview(back)
+            stackView2.addArrangedSubview(M)
+            stackView1.addArrangedSubview(setM)
+            stackView0.addArrangedSubview(rand)
+            stackView4.insertArrangedSubview(u, atIndex: 0)
+            stackView3.insertArrangedSubview(log, atIndex: 0)
+            stackView2.insertArrangedSubview(tenx, atIndex: 0)
+            stackView1.insertArrangedSubview(ln, atIndex: 0)
+            stackView0.insertArrangedSubview(tan_1, atIndex: 0)
+            stackView5.hidden = true
+            stackView6.hidden = true
         } else {
-            stackView4.addArrangedSubview(tan)
-            stackView0.removeArrangedSubview(tan)
-            stackView4.addArrangedSubview(pi)
-            stackView1.removeArrangedSubview(pi)
-            stackView4.addArrangedSubview(e)
-            stackView2.removeArrangedSubview(e)
-            stackView4.addArrangedSubview(sqrt)
-            stackView3.removeArrangedSubview(sqrt)
-            stackView4.addArrangedSubview(devide)
-            stackView5.removeArrangedSubview(devide)
-            stackView4.hidden = false
-            
+            stackView6.addArrangedSubview(rand)
+            stackView6.addArrangedSubview(setM)
+            stackView6.addArrangedSubview(M)
+            stackView6.addArrangedSubview(back)
+            stackView6.addArrangedSubview(c)
+            stackView5.addArrangedSubview(tan_1)
+            stackView5.addArrangedSubview(ln)
+            stackView5.addArrangedSubview(tenx)
+            stackView5.addArrangedSubview(log)
+            stackView5.addArrangedSubview(u)
+            stackView5.hidden = false
+            stackView6.hidden = false
         }
     }
     
@@ -76,15 +88,16 @@ class ViewController: UIViewController {
     
     @IBAction func touchClear(sender: UIButton) {
         userIsInTheMiddleOfTyping = false
-        brain = CalculatorBrain()
+        //brain = CalculatorBrain()
+        brain.clear()
         displayValue = nil
         sequenceОfОperandsОndОperations!.text = " "
         
     }
     
-    var variableTitle = ""
+    private var variableTitle = ""
     
-    @IBAction func touchBackspace(sender: UIButton) {
+    @IBAction func touchBackspace() {
         if userIsInTheMiddleOfTyping{
             let text = display.text!.substringToIndex(display.text!.endIndex.predecessor())
             if (text != "") {
@@ -93,7 +106,10 @@ class ViewController: UIViewController {
                 displayValue = brain.result
                 userIsInTheMiddleOfTyping = false
             }            
-        }
+        }       
+    }
+    
+    @IBAction func performUndo() {       
     }
     
     private var savedProgram: CalculatorBrain.PropertyList?
@@ -105,7 +121,6 @@ class ViewController: UIViewController {
     
     @IBAction func setValueInVariable(sender: AnyObject) {
         brain.variableValues[variableTitle] = displayValue
-        print ("brain.variableValues[variableTitle] \(brain.variableValues[variableTitle])")
         savedProgram = brain.program
         userIsInTheMiddleOfTyping = false
         if savedProgram != nil {

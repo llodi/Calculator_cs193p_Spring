@@ -46,8 +46,11 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdU-pF-ooZ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="101" height="60"/>
                                                                 <color key="backgroundColor" white="0.95218120809999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                                <state key="normal" title="С"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                                <state key="normal" title="Rand"/>
+                                                                <connections>
+                                                                    <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9tS-4Z-lRP"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybT-fj-zPz">
                                                                 <rect key="frame" x="111" y="0.0" width="101" height="60"/>
@@ -121,13 +124,19 @@
                                                                 <rect key="frame" x="334" y="0.0" width="101" height="59"/>
                                                                 <color key="backgroundColor" white="0.95218120809999995" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                                <state key="normal" title="С"/>
+                                                                <state key="normal" title="log"/>
+                                                                <connections>
+                                                                    <action selector="performOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="34X-0X-g9C"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs8-B7-KAB">
                                                                 <rect key="frame" x="445" y="0.0" width="101" height="59"/>
                                                                 <color key="backgroundColor" white="0.95218120809999995" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                                <state key="normal" title="С"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                                <state key="normal" title="U"/>
+                                                                <connections>
+                                                                    <action selector="performUndo" destination="BYZ-38-t0r" eventType="touchUpInside" id="UWc-bw-ase"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -397,19 +406,25 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="devide" destination="48c-s1-YCp" id="mbB-p8-4UZ"/>
+                        <outlet property="M" destination="kYc-Tl-aOe" id="ZcW-q8-5ts"/>
+                        <outlet property="back" destination="qzd-hz-van" id="JZa-eS-dKa"/>
+                        <outlet property="c" destination="cw7-Qe-4ES" id="EdS-ds-zEi"/>
                         <outlet property="display" destination="gcD-iY-y4B" id="iCH-SI-KPs"/>
-                        <outlet property="e" destination="wtg-Dr-xFT" id="gpw-ZY-pdi"/>
-                        <outlet property="pi" destination="85U-zA-nPE" id="Mn8-tN-ojL"/>
+                        <outlet property="ln" destination="a7s-iW-yXY" id="q0o-9Z-dDJ"/>
+                        <outlet property="log" destination="O7r-b6-DCQ" id="Utd-9I-lTX"/>
+                        <outlet property="rand" destination="KdU-pF-ooZ" id="Ifn-Lm-d3g"/>
                         <outlet property="sequenceОfОperandsОndОperations" destination="agR-ez-XfH" id="4n0-QP-obP"/>
-                        <outlet property="sqrt" destination="moo-x6-mqr" id="lq0-4h-FtJ"/>
+                        <outlet property="setM" destination="ybT-fj-zPz" id="ZEQ-vR-OdN"/>
                         <outlet property="stackView0" destination="bqp-iS-Ngg" id="kaQ-yf-l8B"/>
                         <outlet property="stackView1" destination="YcN-ZV-ocV" id="Cs9-bv-0CV"/>
                         <outlet property="stackView2" destination="4Xl-d8-bz9" id="9S0-qz-AV2"/>
                         <outlet property="stackView3" destination="4yX-tK-ZEm" id="amP-Ts-2X4"/>
                         <outlet property="stackView4" destination="ZfB-UW-Hsg" id="Nby-R6-GtP"/>
                         <outlet property="stackView5" destination="eCh-bw-Mf1" id="3Wc-Wp-vyh"/>
-                        <outlet property="tan" destination="hgA-Gd-RTh" id="mrz-U2-Hew"/>
+                        <outlet property="stackView6" destination="8ag-N1-krn" id="c1q-XO-QDs"/>
+                        <outlet property="tan_1" destination="59r-eq-cE4" id="Khv-bJ-KjJ"/>
+                        <outlet property="tenx" destination="L4v-as-5pJ" id="9OM-g0-cfp"/>
+                        <outlet property="u" destination="vs8-B7-KAB" id="D4J-1N-kT6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

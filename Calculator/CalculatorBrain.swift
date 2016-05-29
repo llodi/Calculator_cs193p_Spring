@@ -49,6 +49,7 @@ class CalculatorBrain {
     }
     
     private var operations: Dictionary<String,Operation> = [
+        "Rand" : Operation.noArgs(drand48, "rand"),
         "π" : Operation.Constant(M_PI),
         "e" : Operation.Constant(M_E),
         "ln" : Operation.UnaryOperation(log, {"ln("+$0+")"}),
@@ -57,6 +58,7 @@ class CalculatorBrain {
         "cos" : Operation.UnaryOperation(cos,{"cos("+$0+")"}),
         "sin" : Operation.UnaryOperation(sin,{"sin("+$0+")"}),
         "tan" : Operation.UnaryOperation(tan,{"tan("+$0+")"}),
+        "log" : Operation.UnaryOperation(tan,{"log("+$0+")"}),
         "cos⁻¹" : Operation.UnaryOperation(acos,{"cos⁻¹("+$0+")"}),
         "sin⁻¹" : Operation.UnaryOperation(asin,{"sin⁻¹("+$0+")"}),
         "tan⁻¹" : Operation.UnaryOperation(atan,{"tan⁻¹("+$0+")"}),
@@ -70,6 +72,7 @@ class CalculatorBrain {
     ]
     
     private enum Operation {
+        case noArgs(()->Double, String)
         case Constant(Double)
         case UnaryOperation((Double) -> Double, (String) -> String)
         case BinaryOperation((Double,Double) -> Double, (String, String) -> String,Int)
@@ -80,6 +83,9 @@ class CalculatorBrain {
         internalProgram.append(symbol)
         if let operation = operations[symbol]{
             switch operation {
+            case .noArgs(let noArgFunction, let noArgFunctionString):
+                accumulator = noArgFunction()
+                accumulatorDescription = noArgFunctionString
             case .Constant(let value):
                 accumulator = value
                 accumulatorDescription = symbol
@@ -132,8 +138,6 @@ class CalculatorBrain {
                     } else if let symbol = op as? String{
                         if let var_ = variableValues[symbol] {
                             setOperand(var_)
-                            print("var_: \(var_)")
-                            print("symbol: \(symbol)")
                         }
                         performOperand(symbol)
                     }
@@ -147,6 +151,7 @@ class CalculatorBrain {
         accumulator = 0.0
         accumulatorDescription = ""
         pending = nil
+        variableValues = [:]
         internalProgram.removeAll()
     }
     
