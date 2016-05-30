@@ -13,6 +13,7 @@ class CalculatorBrain {
     private var accumulator = 0.0
     private var accumulatorDescription = " "
     private var currentPrecedence = 0
+    var variableValues: Dictionary<String, Double> = [:]
     
     private var internalProgram = [AnyObject]()
     
@@ -24,7 +25,7 @@ class CalculatorBrain {
         if pending == nil{
             return accumulatorDescription
         } else {
-            return pending!.stringFunction(pending!.firstOperandDescription, pending!.firstOperandDescription != accumulatorDescription ? accumulatorDescription : "")
+            return pending!.stringFunction(pending!.firstOperandDescription, pending!.firstOperandDescription != accumulatorDescription ? accumulatorDescription 	: "")
         }
     }
     
@@ -34,13 +35,9 @@ class CalculatorBrain {
     
     func setOperand(variableName: String){
         internalProgram.append(variableName)
-        variableValues[variableName] = 0.0
-        accumulator = 0.0
+        accumulator = variableValues[variableName] ?? 0.0
         accumulatorDescription = variableName
     }
-    
-    var variableValues: Dictionary<String, Double> = [:]
-    
     
     func setOperand(operand: Double){
         internalProgram.append(operand)
@@ -136,8 +133,8 @@ class CalculatorBrain {
                     if let operand = op as? Double {
                         setOperand(operand)
                     } else if let symbol = op as? String{
-                        if let var_ = variableValues[symbol] {
-                            setOperand(var_)
+                        if (variableValues[symbol] != nil) {
+                            setOperand(symbol)
                         }
                         performOperand(symbol)
                     }
