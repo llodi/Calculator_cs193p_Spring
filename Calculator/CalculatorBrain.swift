@@ -55,7 +55,8 @@ class CalculatorBrain {
         "cos" : Operation.UnaryOperation(cos,{"cos("+$0+")"}),
         "sin" : Operation.UnaryOperation(sin,{"sin("+$0+")"}),
         "tan" : Operation.UnaryOperation(tan,{"tan("+$0+")"}),
-        "log" : Operation.UnaryOperation(tan,{"log("+$0+")"}),
+        "log" : Operation.UnaryOperation(log,{"log("+$0+")"}),
+        "log₁₀" : Operation.UnaryOperation(log10,{"log₁₀("+$0+")"}),
         "cos⁻¹" : Operation.UnaryOperation(acos,{"cos⁻¹("+$0+")"}),
         "sin⁻¹" : Operation.UnaryOperation(asin,{"sin⁻¹("+$0+")"}),
         "tan⁻¹" : Operation.UnaryOperation(atan,{"tan⁻¹("+$0+")"}),
@@ -91,7 +92,6 @@ class CalculatorBrain {
                 accumulatorDescription = stringFunction(accumulatorDescription)
             case .BinaryOperation(let function, let stringFunction, let precedence):
                 executePendingBinaryOperation()
-                print("curPre \(currentPrecedence) pre \(precedence)")
                 if (currentPrecedence > precedence){
                     accumulatorDescription = "(" + accumulatorDescription + ")"
                 }
@@ -120,6 +120,16 @@ class CalculatorBrain {
         var firstOperandDescription: String
     }
     
+    func undo () {
+        guard !internalProgram.isEmpty else {return}
+        internalProgram.removeLast()
+        print("\(internalProgram.count)")
+        pending = nil
+        program = internalProgram
+        
+        print("desscription: \(description) and acc \(accumulator)")
+    }
+    
     typealias PropertyList = AnyObject
     
     var program: PropertyList {
@@ -132,7 +142,9 @@ class CalculatorBrain {
                 for op in arrayOfOps {
                     if let operand = op as? Double {
                         setOperand(operand)
+                        print("\(operand)")
                     } else if let symbol = op as? String{
+                        print("\(symbol)")
                         if (variableValues[symbol] != nil) {
                             setOperand(symbol)
                         }
@@ -149,6 +161,7 @@ class CalculatorBrain {
         accumulatorDescription = ""
         pending = nil
         variableValues = [:]
+        currentPrecedence = 0
         internalProgram.removeAll()
     }
     

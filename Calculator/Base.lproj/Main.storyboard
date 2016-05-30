@@ -76,7 +76,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                                 <state key="normal" title="⇐"/>
                                                                 <connections>
-                                                                    <action selector="touchBackspace:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3i4-MV-0fZ"/>
+                                                                    <action selector="touchBackspace" destination="BYZ-38-t0r" eventType="touchUpInside" id="WkY-SZ-1gu"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cw7-Qe-4ES">
@@ -133,10 +133,7 @@
                                                                 <rect key="frame" x="456" y="0.0" width="104" height="60"/>
                                                                 <color key="backgroundColor" white="0.95218120809999995" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                                <state key="normal" title="U"/>
-                                                                <connections>
-                                                                    <action selector="performUndo" destination="BYZ-38-t0r" eventType="touchUpInside" id="UWc-bw-ase"/>
-                                                                </connections>
+                                                                <state key="normal" title="log₁₀"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -407,7 +404,6 @@
                     </view>
                     <connections>
                         <outlet property="M" destination="kYc-Tl-aOe" id="ZcW-q8-5ts"/>
-                        <outlet property="back" destination="qzd-hz-van" id="JZa-eS-dKa"/>
                         <outlet property="c" destination="cw7-Qe-4ES" id="EdS-ds-zEi"/>
                         <outlet property="display" destination="gcD-iY-y4B" id="iCH-SI-KPs"/>
                         <outlet property="ln" destination="a7s-iW-yXY" id="q0o-9Z-dDJ"/>

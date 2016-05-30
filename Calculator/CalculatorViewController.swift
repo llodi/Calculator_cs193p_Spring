@@ -106,12 +106,11 @@ class CalculatorViewController: UIViewController {
                 displayValue = brain.result
                 userIsInTheMiddleOfTyping = false
             }            
-        }       
+        } else {
+            brain.undo()
+        }
     }
-    
-    @IBAction func performUndo() {       
-    }
-    
+   
     private var savedProgram: CalculatorBrain.PropertyList?
     
     @IBAction func touchVariable(sender: UIButton) {
