@@ -133,11 +133,7 @@ class CalculatorBrain {
                     if let operand = op as? Double {
                         setOperand(operand)
                     } else if let symbol = op as? String{
-<<<<<<< HEAD
                         if (variableValues[symbol] != nil) {
-=======
-                        if let var_ = variableValues[symbol] {
->>>>>>> origin/master
                             setOperand(symbol)
                         }
                         performOperand(symbol)
