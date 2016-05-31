@@ -138,15 +138,16 @@ class CalculatorBrain {
         }
         set{
             //clear()
+            //print("\(variableValues["M"])")
             if let arrayOfOps = newValue as? [AnyObject] {
                 for op in arrayOfOps {
                     if let operand = op as? Double {
                         setOperand(operand)
-                        print("\(operand)")
                     } else if let symbol = op as? String{
                         print("\(symbol)")
                         if (variableValues[symbol] != nil) {
                             setOperand(symbol)
+                            continue
                         }
                         performOperand(symbol)
                     }

@@ -108,6 +108,7 @@ class CalculatorViewController: UIViewController {
             }            
         } else {
             brain.undo()
+            displayValue = brain.result
         }
     }
    
