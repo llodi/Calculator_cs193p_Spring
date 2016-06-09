@@ -137,7 +137,7 @@ class CalculatorBrain {
             return internalProgram
         }
         set{
-            //clear()
+            clear()
             //print("\(variableValues["M"])")
             if let arrayOfOps = newValue as? [AnyObject] {
                 for op in arrayOfOps {
@@ -161,7 +161,7 @@ class CalculatorBrain {
         accumulator = 0.0
         accumulatorDescription = ""
         pending = nil
-        variableValues = [:]
+        //variableValues = [:]
         currentPrecedence = 0
         internalProgram.removeAll()
     }

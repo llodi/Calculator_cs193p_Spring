@@ -88,8 +88,8 @@ class CalculatorViewController: UIViewController {
     
     @IBAction func touchClear(sender: UIButton) {
         userIsInTheMiddleOfTyping = false
-        //brain = CalculatorBrain()
-        brain.clear()
+        brain = CalculatorBrain()
+        //brain.clear()
         displayValue = nil
         sequenceОfОperandsОndОperations!.text = " "
         
