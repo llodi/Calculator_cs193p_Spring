@@ -17,7 +17,7 @@ class CalculatorViewController: UIViewController {
     
     private var userIsInTheMiddleOfTyping = false
 
-    @IBOutlet weak var u: UIButton!
+    @IBOutlet weak var graph: UIButton!
     @IBOutlet weak var log: UIButton!
     @IBOutlet weak var tenx: UIButton!
     @IBOutlet weak var ln: UIButton!
@@ -45,11 +45,11 @@ class CalculatorViewController: UIViewController {
     private func reArrangedViewStacks (verticalSizeClass: UIUserInterfaceSizeClass){
         if(verticalSizeClass == .Compact){
             stackView4.addArrangedSubview(c)
-            stackView3.addArrangedSubview(back)
-            stackView2.addArrangedSubview(M)
-            stackView1.addArrangedSubview(setM)
-            stackView0.addArrangedSubview(rand)
-            stackView4.insertArrangedSubview(u, atIndex: 0)
+            stackView3.addArrangedSubview(graph)
+            stackView2.addArrangedSubview(back)
+            stackView1.addArrangedSubview(M)
+            stackView0.addArrangedSubview(setM)
+            stackView4.insertArrangedSubview(rand, atIndex: 0)
             stackView3.insertArrangedSubview(log, atIndex: 0)
             stackView2.insertArrangedSubview(tenx, atIndex: 0)
             stackView1.insertArrangedSubview(ln, atIndex: 0)
@@ -66,7 +66,7 @@ class CalculatorViewController: UIViewController {
             stackView5.addArrangedSubview(ln)
             stackView5.addArrangedSubview(tenx)
             stackView5.addArrangedSubview(log)
-            stackView5.addArrangedSubview(u)
+            stackView5.addArrangedSubview(graph)
             stackView5.hidden = false
             stackView6.hidden = false
         }
@@ -160,6 +160,25 @@ class CalculatorViewController: UIViewController {
         }
         displayValue = brain.result
         sequenceОfОperandsОndОperations.text! = brain.description + (brain.isPartialResult ? " ..." : " =")
+    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destinationvc = segue.destinationViewController
+        if let navcon = destinationvc as? UINavigationController{
+            destinationvc = navcon.visibleViewController ?? destinationvc
+        }
+        if let graphvc = destinationvc as? GraphViewController {
+            if let identifier = segue.identifier {
+                switch identifier {
+                case "show graph":
+                    graphvc.navigationItem.title = brain.description
+                    break//brain.program
+                default:
+                    break
+                }
+            }
+        }
     }
 }
 
