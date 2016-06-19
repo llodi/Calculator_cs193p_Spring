@@ -9,5 +9,22 @@
 import UIKit
 
 class GraphViewController: UIViewController {
-
+    
+    @IBOutlet weak var graphView: GraphView! {
+        didSet {
+            graphView.addGestureRecognizer(UIPinchGestureRecognizer(
+                target: graphView, action: #selector(GraphView.scale(_:))
+            ))
+            
+            graphView.addGestureRecognizer(UIPanGestureRecognizer(
+                target: graphView, action: #selector(GraphView.moveTo(_:))
+                ))
+            
+            graphView.addGestureRecognizer(UITapGestureRecognizer(
+                target: graphView, action: #selector(GraphView.moveOrignTo)
+                ))
+            
+            
+        }
+    }
 }

@@ -26,8 +26,38 @@ class GraphView: UIView {
     @IBInspectable
     var color: UIColor = UIColor.blueColor() { didSet {setNeedsDisplay() } }
     
+    func scale(recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .Changed, .Ended:
+            scale *= recognizer.scale
+            recognizer.scale = 1.0
+        default: break
+        }
+    }
+    
+    func moveTo(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .Changed,.Ended:
+            let transition = recognizer.translationInView(self)
+            if transition != CGPointZero {
+                orign?.x += transition.x
+                orign?.y += transition.y
+                recognizer.setTranslation(CGPointZero, inView: self)
+            }
+        default: break
+        }
+    }
+    
+    func moveOrignTo(recognizer: UITapGestureRecognizer){
+        recognizer.numberOfTapsRequired = 2
+        if recognizer.state == .Ended {
+            orign = recognizer.locationInView(self)
+        }
+    }
+    
     override func drawRect(rect: CGRect) {
-        orign = graphCenter
+        //orign = graphCenter
+        orign = orign ?? graphCenter
         axesDrawer.contentScaleFactor = contentScaleFactor
         axesDrawer.drawAxesInRect(bounds, origin: orign!, pointsPerUnit: scale)
     }

@@ -504,6 +504,9 @@
                             <constraint firstAttribute="trailing" secondItem="iCf-ak-MAl" secondAttribute="trailing" id="r7C-l3-ijr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="graphView" destination="iCf-ak-MAl" id="veP-0A-hgn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n8D-Jf-jIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
