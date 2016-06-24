@@ -173,9 +173,8 @@ class CalculatorViewController: UIViewController {
                 switch identifier {
                 case "show graph":
                     graphvc.navigationItem.title = brain.description
-                    break//brain.program
-                default:
-                    break
+                    graphvc.program = brain.program
+                default: break
                 }
             }
         }

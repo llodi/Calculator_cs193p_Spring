@@ -11,6 +11,8 @@ import UIKit
 @IBDesignable
 class GraphView: UIView {
     
+    var yForX: ((x: Double) -> Double?)? { didSet { setNeedsDisplay() } }
+    
     let axesDrawer = AxesDrawer(color: UIColor.blueColor())
     
     private var graphCenter: CGPoint {
@@ -20,7 +22,7 @@ class GraphView: UIView {
     @IBInspectable
     var scale: CGFloat = 50.0 { didSet {setNeedsDisplay() } }
     @IBInspectable
-    var orign: CGPoint? { didSet {setNeedsDisplay() } }
+    var origin: CGPoint? { didSet {setNeedsDisplay() } }
     @IBInspectable
     var lineWidth: CGFloat = 2.0 { didSet {setNeedsDisplay() } }
     @IBInspectable
@@ -40,25 +42,54 @@ class GraphView: UIView {
         case .Changed,.Ended:
             let transition = recognizer.translationInView(self)
             if transition != CGPointZero {
-                orign?.x += transition.x
-                orign?.y += transition.y
+                origin?.x += transition.x
+                origin?.y += transition.y
                 recognizer.setTranslation(CGPointZero, inView: self)
             }
         default: break
         }
     }
     
-    func moveOrignTo(recognizer: UITapGestureRecognizer){
+    func moveOriginTo(recognizer: UITapGestureRecognizer){
         recognizer.numberOfTapsRequired = 2
         if recognizer.state == .Ended {
-            orign = recognizer.locationInView(self)
+            origin = recognizer.locationInView(self)
         }
     }
     
+    func drawCurveInRect(bounds: CGRect, origin: CGPoint, pointsPerUnit: CGFloat){
+        color.set()
+        let path = UIBezierPath()
+        path.lineWidth = lineWidth
+        var point = CGPoint()
+        
+        var firstValue = true
+        for i in 0...Int(bounds.size.width * contentScaleFactor) {
+            point.x = CGFloat(i) / contentScaleFactor
+            if let y = self.yForX?(x: Double((point.x - origin.x) / scale)){
+                if !y.isNormal && !y.isZero {
+                    firstValue = true
+                    continue
+                }
+                point.y = origin.y - CGFloat(y) * scale
+                if firstValue {
+                    path.moveToPoint(point)
+                    firstValue = false
+                } else {
+                    path.addLineToPoint(point)
+                }
+            } else {
+                firstValue = true
+            }
+        }
+        path.stroke()
+    }
+    
     override func drawRect(rect: CGRect) {
-        //orign = graphCenter
-        orign = orign ?? graphCenter
+        origin = graphCenter
+        //origin = origin ?? graphCenter
         axesDrawer.contentScaleFactor = contentScaleFactor
-        axesDrawer.drawAxesInRect(bounds, origin: orign!, pointsPerUnit: scale)
+        axesDrawer.drawAxesInRect(bounds, origin: origin!, pointsPerUnit: scale)
+        drawCurveInRect(bounds, origin: origin!, pointsPerUnit: scale)
     }
 }

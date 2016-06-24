@@ -13,7 +13,11 @@ class CalculatorBrain {
     private var accumulator = 0.0
     private var accumulatorDescription = " "
     private var currentPrecedence = 0
-    var variableValues: Dictionary<String, Double> = [:]
+    var variableValues: Dictionary<String, Double> = [:] {
+        didSet {
+            program = internalProgram
+        }
+    }
     
     private var internalProgram = [AnyObject]()
     
